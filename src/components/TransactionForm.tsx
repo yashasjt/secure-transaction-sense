@@ -51,22 +51,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
     setIsSubmitting(false);
   };
 
-  const commonLocations = [
-    'New York',
-    'Los Angeles',
-    'Chicago',
-    'Houston',
-    'Miami',
-    'San Francisco',
-    'Seattle',
-    'Boston',
-    'Las Vegas',
-    'London',
-    'Paris',
-    'Tokyo',
-    'Sydney'
-  ];
-
   return (
     <Card>
       <CardHeader>
@@ -117,18 +101,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
                 <MapPin className="w-4 h-4" />
                 Location
               </Label>
-              <Select onValueChange={setLocation} required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select location" />
-                </SelectTrigger>
-                <SelectContent>
-                  {commonLocations.map((loc) => (
-                    <SelectItem key={loc} value={loc}>
-                      {loc}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Input
+                id="location"
+                type="text"
+                placeholder="Enter location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+              />
             </div>
 
             <div className="space-y-2">

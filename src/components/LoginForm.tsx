@@ -22,11 +22,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     // Simulate authentication delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Simple authentication - accept any username with password "admin"
-    if (password === 'admin') {
+    // Accept any username and password combination
+    if (username.trim() && password.trim()) {
       onLogin(username || 'Admin User');
     } else {
-      alert('Invalid credentials. Use password: admin');
+      alert('Please enter both username and password');
     }
     
     setIsLoading(false);
@@ -85,9 +85,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             >
               {isLoading ? 'Authenticating...' : 'Sign In'}
             </Button>
-            <div className="text-sm text-gray-500 text-center mt-4">
-              Demo credentials: password = <strong>admin</strong>
-            </div>
           </form>
         </CardContent>
       </Card>
