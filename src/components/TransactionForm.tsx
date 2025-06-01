@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, DollarSign, MapPin, Calendar, User } from 'lucide-react';
+import { Plus, DollarSign, MapPin, Calendar, User, Clock } from 'lucide-react';
 
 interface TransactionFormProps {
   onSubmit: (transaction: {
@@ -20,6 +20,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
   const [userId, setUserId] = useState('');
   const [amount, setAmount] = useState('');
   const [location, setLocation] = useState('');
+  const [time, setTime] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,17 +30,24 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
     // Simulate processing delay
     await new Promise(resolve => setTimeout(resolve, 500));
 
+    // Create timestamp from current date and selected time
+    const now = new Date();
+    const timestamp = time ? 
+      new Date(`${now.toDateString()} ${time}`) : 
+      new Date();
+
     onSubmit({
       userId,
       amount: parseFloat(amount),
       location,
-      timestamp: new Date()
+      timestamp
     });
 
     // Reset form
     setUserId('');
     setAmount('');
     setLocation('');
+    setTime('');
     setIsSubmitting(false);
   };
 
@@ -104,7 +112,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
               />
             </div>
 
-            <div className="space-y-2 md:col-span-2">
+            <div className="space-y-2">
               <Label htmlFor="location" className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 Location
@@ -121,6 +129,21 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="time" className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                Time
+              </Label>
+              <Input
+                id="time"
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                placeholder="HH:MM"
+              />
+              <p className="text-xs text-gray-500">Leave empty for current time</p>
             </div>
           </div>
 

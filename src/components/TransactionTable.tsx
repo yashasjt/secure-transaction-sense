@@ -57,6 +57,13 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
     }
   };
 
+  const formatDateTime = (timestamp: Date) => {
+    return {
+      date: timestamp.toLocaleDateString(),
+      time: timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -74,39 +81,42 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
                 <TableHead>User ID</TableHead>
                 <TableHead>Amount</TableHead>
                 <TableHead>Location</TableHead>
-                <TableHead>Date & Time</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Time</TableHead>
                 <TableHead>Risk Score</TableHead>
                 <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions.map((transaction) => (
-                <TableRow
-                  key={transaction.id}
-                  className={`cursor-pointer hover:bg-gray-50 ${
-                    transaction.isNew ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
-                  }`}
-                  onClick={() => onTransactionClick(transaction)}
-                >
-                  <TableCell className="font-mono text-sm">
-                    {transaction.id}
-                  </TableCell>
-                  <TableCell>{transaction.userId}</TableCell>
-                  <TableCell className="font-semibold">
-                    ${transaction.amount.toFixed(2)}
-                  </TableCell>
-                  <TableCell>{transaction.location}</TableCell>
-                  <TableCell>
-                    {transaction.timestamp.toLocaleString()}
-                  </TableCell>
-                  <TableCell>
-                    {getRiskBadge(transaction.riskScore)}
-                  </TableCell>
-                  <TableCell>
-                    {getStatusBadge(transaction.status)}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {transactions.map((transaction) => {
+                const { date, time } = formatDateTime(transaction.timestamp);
+                return (
+                  <TableRow
+                    key={transaction.id}
+                    className={`cursor-pointer hover:bg-gray-50 ${
+                      transaction.isNew ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                    }`}
+                    onClick={() => onTransactionClick(transaction)}
+                  >
+                    <TableCell className="font-mono text-sm">
+                      {transaction.id}
+                    </TableCell>
+                    <TableCell>{transaction.userId}</TableCell>
+                    <TableCell className="font-semibold">
+                      ${transaction.amount.toFixed(2)}
+                    </TableCell>
+                    <TableCell>{transaction.location}</TableCell>
+                    <TableCell>{date}</TableCell>
+                    <TableCell className="font-mono">{time}</TableCell>
+                    <TableCell>
+                      {getRiskBadge(transaction.riskScore)}
+                    </TableCell>
+                    <TableCell>
+                      {getStatusBadge(transaction.status)}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </div>
