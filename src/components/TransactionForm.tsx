@@ -82,7 +82,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
             <div className="space-y-2">
               <Label htmlFor="amount" className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4" />
-                Amount
+                Amount (INR)
               </Label>
               <Input
                 id="amount"
@@ -104,7 +104,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
               <Input
                 id="location"
                 type="text"
-                placeholder="Enter location"
+                placeholder="Enter any location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required

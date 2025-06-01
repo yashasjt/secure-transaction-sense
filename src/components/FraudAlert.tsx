@@ -56,7 +56,7 @@ const FraudAlert: React.FC<FraudAlertProps> = ({
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-gray-500" />
-                <span className="font-medium">${transaction.amount.toFixed(2)}</span>
+                <span className="font-medium">₹{transaction.amount.toFixed(2)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-gray-500" />

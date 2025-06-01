@@ -103,7 +103,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
                     </TableCell>
                     <TableCell>{transaction.userId}</TableCell>
                     <TableCell className="font-semibold">
-                      ${transaction.amount.toFixed(2)}
+                      ₹{transaction.amount.toFixed(2)}
                     </TableCell>
                     <TableCell>{transaction.location}</TableCell>
                     <TableCell>{date}</TableCell>
